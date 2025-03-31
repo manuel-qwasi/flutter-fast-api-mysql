@@ -7,8 +7,11 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Get database URL from .env file
-DATABASE_URL = os.getenv("DATABASE_URL")
+# Modify the connection URL to use PyMySQL as the driver
+DATABASE_URL = (
+    f"mysql+pymysql://{os.getenv('MYSQLUSER')}:{os.getenv('MYSQL_ROOT_PASSWORD')}"
+    f"@{os.getenv('RAILWAY_PRIVATE_DOMAIN')}:3306/{os.getenv('MYSQL_DATABASE')}"
+)
 
 # Create database engine
 engine = create_engine(DATABASE_URL)
